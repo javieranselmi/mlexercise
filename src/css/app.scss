@@ -9,6 +9,7 @@ body {
     color: #333;
     font: 13px/20px Arial,Helvetica,"Nimbus Sans L",sans-serif;
     padding: 0px;
+    margin-top:100px;
 }
 
 .ml-logo {
@@ -34,6 +35,7 @@ body {
 
 .ml-product-info-container {
 	padding-left: 40px;
+	padding-right: 40px;
 }
 
 .price {
@@ -76,4 +78,15 @@ hr {
 }
 .seller-answer>h3 {
     color: $seller-color;
+}
+
+.ml-header-fixed {
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0px !important;
+    width: 100%;
+}
+
+.more-product-container {
+	min-width: 210px !important;
 }
