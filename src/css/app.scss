@@ -1,9 +1,79 @@
 $font-stack:    Helvetica, sans-serif;
-$primary-color: #333;
+$ml-color: #FFF059;
+$info-color: #525252;
 
+$buyer-color:#3A87AD;
+$seller-color:#468847;
 
 body {
-  font: 100% $font-stack;
-  color: $primary-color;
-  padding-top: 60px;
+    color: #333;
+    font: 13px/20px Arial,Helvetica,"Nimbus Sans L",sans-serif;
+    padding: 0px;
+}
+
+.ml-logo {
+	margin: 3px;
+}
+
+.ml-header {
+	background-color: $ml-color;
+	background-image: none;
+}
+
+.ml-product-title {
+	text-align: center;
+	margin: 30px;
+	font-size: 30px;
+	line-height: 50px;
+}
+
+.ml-product-image {
+	width: 100%;
+    box-shadow: -4px 4px 2px grey;
+}
+
+.ml-product-info-container {
+	padding-left: 40px;
+}
+
+.price {
+	font-size: 30px;
+}
+
+.product-option{
+color: $info-color;
+font-size: 14px;
+display:block;
+margin-top:15px;
+margin-bottom:15px;
+}
+
+#quantity {
+	width:50px;
+}
+
+.product-notice{
+color: $info-color;
+font-size: 10px;
+display:block;
+margin-top:15px;
+margin-bottom:15px;
+}
+
+.product-more-products {
+text-align:center
+}
+
+.ch-carousel-mask {
+	height: 100px !important;
+	text-align:center !important;	
+}
+hr {
+    border: 1px solid $info-color;
+}
+.buyer-question>h3 {
+    color: $buyer-color;
+}
+.seller-answer>h3 {
+    color: $seller-color;
 }

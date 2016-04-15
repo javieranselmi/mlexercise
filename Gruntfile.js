@@ -71,7 +71,7 @@ module.exports = function(grunt) {
     },//End htmlmin configuration (minifies html files)
     
         
-    copy: { //Copy all vendor files into dist folder
+    copy: { //Start copy config copy all vendor files into dist folder
       dist: {
         files: [
           // includes files within path
@@ -97,11 +97,37 @@ module.exports = function(grunt) {
            src: ['src/js/*.js'],
            dest: 'dist/js',
            filter: 'isFile'
+          },
+
+          {
+           expand: true, 
+           flatten: true,
+           src: ['src/fonts/**'],
+           dest: 'dist/fonts',
+           filter: 'isFile'
+          },
+
+          {
+           expand: true, 
+           flatten: true,
+           src: ['src/assets/**'],
+           dest: 'dist/assets',
+           filter: 'isFile'
+          },
+
+
+
+          {
+           expand: true, 
+           flatten: true,
+           src: ['src/*','!src/*.html'],
+           dest: 'dist/',
+           filter: 'isFile'
           }
             
-        ],
-      },
-    },
+        ]
+      } 
+    },//End Copy configall vendor files into dist folder
 
 
     //Start uglify configuration (minifies js file)
@@ -117,43 +143,61 @@ module.exports = function(grunt) {
       }
     },//End uglify configuration (minifies js file)
 
-
-/* MUST FIX CONCAT
     //Start concat configuration (concatenates all js files into one)
     concat: {
       options: {
-        separator: ';'
+        separator: '\n'
       },
 
-      dest: {
-
+      js: {
+        
         files: [{
-                  expand: true,
-                  flatten: true,
-                  src: ['src/js/vendor/jquery*.js', //jquery has to go before bootstrap
-                        'src/js/vendor/bootstrap*.js',//bootstrap goes next
-                        'src/js/vendor/*.js', //rest of vendors
-                        'src/js/*.js' //rest of custom js files
+                  src: ['dist/js/vendor/jquery*.min.js', //jquery has to go before bootstrap
+                        'dist/js/vendor/chico*.min.js',//bootstrap goes next
+                        'dist/js/vendor/*.min.js', //rest of vendors
+                        'dist/js/*.min.js' //rest of custom js files
                        ],
-                  dest: 'dist/js/fullapp.min.js',
-                  },
-                {
-                  expand: true,
-                  flatten: true,
-                  src: ['src/css/vendor/*.css', //css vendors
-                        'src/css/*.css' //rest of custom css files
+                  dest: 'dist/js/fullapp.min.js'
+                  }
+                ]},
+      css: {
+           
+           files: [
+
+                  {     
+                  src: ['dist/css/vendor/*.min.css', //css vendors
+                        'dist/css/*.min.css' //rest of custom css files
                        ],
-                  dest: 'dist/css/fullapp.min.css',
+                  dest: 'dist/css/fullapp.min.css'
                   }
 
-                ]
+                ]}
         
-      }
-    } //End concat configuration (concatenates all js files into one)
+      
+    },//End concat configuration (concatenates all js files into one)
 
-*/
-    
-  }); // End of grunt.initConfig
+
+    clean: { //Start clean config
+
+            options: { force: true },
+            post: {
+
+              files: [{
+                  src: ['dist/css/*',
+                  'dist/js/*',
+                  '!dist/css/fullapp.min.css',
+                  '!dist/js/fullapp.min.js'
+                  ]
+                }]
+            },
+            pre: {
+              files: [{
+                  src: ['dist']
+                }]
+            }
+    }//End clean config
+   
+  }); 
 
   //Grunt load tasks
 
@@ -169,7 +213,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-notify');
 
   // Register our own custom task alias.
-  //grunt.registerTask('dist', ['jshint', 'sass','postcss', 'htmlmin', 'copy:dist']);
-  grunt.registerTask('dist', ['jshint', 'sass','postcss','htmlmin','copy:dist','uglify','concat']);
+  
+  //grunt.registerTask('dist', ['clean:pre','jshint', 'sass','postcss','htmlmin','copy:dist','uglify','concat','clean:post']);
+  grunt.registerTask('dist', ['clean:pre','jshint', 'sass','postcss','htmlmin','copy:dist','uglify','concat:js','concat:css','clean:post']);
+
   
   };
